@@ -30,7 +30,7 @@ public class UpbitHttpClient {
         return objectMapper.readValue(
                 execute,
                 new TypeReference<List<UpbitTickerDto>>() {}
-        ).stream().findFirst().get(); // 하나의 데이터가 필요
+        ).stream().findFirst().get(); // 데이터 중 첫번째 데이터만 필요함
 
 //        List<UpbitTickerDto> upbitTickerDtos = objectMapper.readValue(
 //                execute,
