@@ -15,27 +15,31 @@ import java.util.List;
 public class UpbitHttpClient {
     private final HttpClient httpClient; // HTTP 요청을 보내기 위해 사용함. final로 선언되어 있어, 생성자에서만 초기화 가능
 
-    public UpbitTickerDto getTickerByMarket(String market) throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders(); // http 요청 헤더 생성
-        headers.add("Accept", "application/json"); // json 형식의 응답을 요청함
+    public UpbitTickerDto getTickerByMarket(String market) {
+        try{
+            HttpHeaders headers = new HttpHeaders(); // http 요청 헤더 생성
+            headers.add("Accept", "application/json"); // json 형식의 응답을 요청함
 
-        String execute = httpClient.execute(
-                "https://api.upbit.com/v1/ticker?markets=" + market,
-                HttpMethod.GET,
-                headers
-        ); // httpClient를 사용하여 업비트 api에 get요청을 보내고, 요청 URL은 "https://api.upbit.com/v1/ticker?markets="에 주어진 market 변수를 결함하여 생성함
+            String execute = httpClient.execute(
+                    "https://api.upbit.com/v1/ticker?markets=" + market,
+                    HttpMethod.GET,
+                    headers
+            ); // httpClient를 사용하여 업비트 api에 get요청을 보내고, 요청 URL은 "https://api.upbit.com/v1/ticker?markets="에 주어진 market 변수를 결함하여 생성함
 
-        ObjectMapper objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(
-                execute,
-                new TypeReference<List<UpbitTickerDto>>() {}
-        ).stream().findFirst().get(); // 데이터 중 첫번째 데이터만 필요함
+            return objectMapper.readValue(
+                    execute,
+                    new TypeReference<List<UpbitTickerDto>>() {}
+            ).stream().findFirst().get(); // 데이터 중 첫번째 데이터만 필요함
 
-//        List<UpbitTickerDto> upbitTickerDtos = objectMapper.readValue(
-//                execute,
-//                new TypeReference<List<UpbitTickerDto>>() {}
-//        );   // execute에서 받은 JSON 응답을 List로 변환함 (모든 데이터를 가져옴)
+//          List<UpbitTickerDto> upbitTickerDtos = objectMapper.readValue(
+//              execute,
+//              new TypeReference<List<UpbitTickerDto>>() {}
+//          ); // execute에서 받은 JSON 응답을 List로 변환함 (모든 데이터를 가져옴)
 //        return null;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
