@@ -20,12 +20,12 @@ public class UpbitSlackService {
         UpbitTickerDto tickerByMarket = upbitHttpClient.getTickerByMarket(market);
 
         // slack 메세지 쏘기
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("[실시간 데이터]");
-//        sb.append(market);
-//        sb.append("price = ");
-//        sb.append(tickerByMarket.getTrade_price());
-//        slackHttpClient.send(sb.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("[실시간 데이터]");
+        sb.append(market);
+        sb.append("price = ");
+        sb.append(tickerByMarket.getTrade_price());
+        slackHttpClient.send(sb.toString());
 
         repository.save(market, String.valueOf(tickerByMarket.getTrade_price()));
     }
