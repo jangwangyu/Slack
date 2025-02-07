@@ -1,7 +1,5 @@
 package com.example.slack.controller;
 
-import com.example.slack.http.SlackHttpClient;
-import com.example.slack.http.UpbitHttpClient;
 import com.example.slack.service.UpbitSlackService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
